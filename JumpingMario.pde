@@ -4,14 +4,102 @@ float right;
 float up;
 float down;
 
-float gravity = .5;
+float gravity = 0.3;
 
-float grount = 700;
+float ground = 600;
+
+PImage groundImg;
 
 void setup(){
-  size(800,800);
+  size(1200,800);
   
   mario = new SideJumper();
-  mario.image = loadImage();
+  mario.image = loadImage("Mario_Standing_Left_Side.png");
+  mario.position = new PVector(400,ground);
+  mario.direction = 1;
+  mario.velocity = new PVector(0,0);
+  mario.jumpSpeed = 10;
+  mario.walkSpeed = 5;
+}
 
+void draw(){
+  background(#A8B4F5);
+  updateMario();
+}
+
+void updateMario(){
+  //only apply gravity if above ground.
+  if(mario.position.y < ground){
+    mario.velocity.y += gravity;
+  }
+  else {
+    mario.velocity.y = 0;
+  }
+  // If on the ground and "jump" keyy is pressed set my upward velocity to the jump speed!\
+  if (mario.position.y >= ground && up != 0){
+    mario.velocity.y = -mario.jumpSpeed;
+  }
+  //Walk left and right.
+  mario.velocity.x = mario.walkSpeed * (left + right);
+  // Check the nextPosition before actually setting the position so we cant move mario if he's colliding.
+  PVector nextPosition = new PVector(mario.position.x, mario.position.y);
+  nextPosition.add(mario.velocity);
+  // Check collision with edge of screen and don't move if at the edge
+  float offset = 0;
+  if(nextPosition.x > offset && nextPosition.x <(width - offset)){
+    mario.position.x = nextPosition.x;
+  }
+  if (nextPosition.y > offset && nextPosition.y <(height - offset)){
+    mario.position.y = nextPosition.y;
+  }
+  pushMatrix();
+  translate(mario.position.x, mario.position.y);
+  scale(mario.direction,1);
+  
+  imageMode(CENTER);
+  image(mario.image,0,0);
+  
+  popMatrix();
+}
+
+void keyPressed()
+{
+  if (key == 'd')
+  {
+    right = 1;
+    mario.direction = -1;
+  }
+  if (key == 'a')
+  {
+    left = -1;
+    mario.direction = 1;
+  }
+  if (key == ' ')
+  {
+    up = -1;
+  }
+  if (key == 's')
+  {
+    down = 1;
+  }
+}
+
+void keyReleased()
+{
+  if (key == 'd')
+  {
+    right = 0;
+  }
+  if (key == 'a')
+  {
+    left = 0;
+  }
+  if (key == ' ')
+  {
+    up = 0;
+  }
+  if (key == 's')
+  {
+    down = 0;
+  }
 }

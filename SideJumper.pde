@@ -4,6 +4,6 @@ PImage image;
 PVector position;
 float direction;
 PVector velocity;
-float jumSpeed;
+float jumpSpeed;
 float walkSpeed;
 }
