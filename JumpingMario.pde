@@ -4,14 +4,30 @@ float right;
 float up;
 float down;
 
+import processing.sound.*;
+
 float gravity = 0.3;
 
 float ground = 600;
 
 PImage groundImg;
 
+
+
+
+SoundFile file;
+String audioName = "Mario_Theme_Song.mp3";
+String path;
+
 void setup(){
   size(1200,800);
+  
+  //ground
+  //fill(#A7782A);
+  //stroke(#939393);
+  //rect(0,652,width,200);
+  
+  
   
   mario = new SideJumper();
   mario.image = loadImage("Mario_Standing_Left_Side.png");
@@ -20,10 +36,17 @@ void setup(){
   mario.velocity = new PVector(0,0);
   mario.jumpSpeed = 10;
   mario.walkSpeed = 5;
+  
+  PlayMusic();
+  
 }
 
 void draw(){
   background(#A8B4F5);
+    //ground
+  fill(#A7782A);
+  stroke(#939393);
+  rect(0,652,width,200);
   updateMario();
 }
 
@@ -102,4 +125,14 @@ void keyReleased()
   {
     down = 0;
   }
+}
+
+void PlayMusic(){
+  path = sketchPath(audioName);
+  file = new SoundFile(this,path);
+  file.play();
+}
+
+void MakeCoin(){
+  
 }
