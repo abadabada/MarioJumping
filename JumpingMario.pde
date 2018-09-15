@@ -5,6 +5,8 @@ float right;
 float up;
 float down;
 
+int score = 0;
+
 import processing.sound.*;
 
 float gravity = 0.3;
@@ -56,6 +58,8 @@ void setup(){
   coin[3].coinImage = loadImage ("mario_coin.png");
   coin[3].coinPosition = new PVector (width/3  , ground - 150);
   coin[3].coinDirection = 1;
+  
+  
   
   //PlayMusic();
   
@@ -192,11 +196,11 @@ void MakeCoin(){
 
 void ScoreCoins(){
   
-  int i = 0;
-  int score = 0;
-  String result = "Coins: ";
+  
+  
+  String result = "COINS: ";
   float marioX = mario.position.x;
-  float marioY = mario.position.y;
+  float marioY = mario.position.y - 150;
   
   float coin1X = coin[0].coinPosition.x;
   float coin2X = coin[1].coinPosition.x;
@@ -209,22 +213,17 @@ void ScoreCoins(){
   float coin4Y = coin[3].coinPosition.y;
   
   
-  if (marioX == coin1X && marioY == coin1Y + 200){
-        
-        i ++;
-        score = i;
-        print(result + score);
+  if (marioX == coin1X && marioY >= ground && marioY <= coin1Y){ 
+      score ++;
+      print(result + score);
     } else if (marioX == coin2X + 100){
-      i ++;
-      score = i;
+      score ++;
       print(result + score);
     }else if( marioX == coin3X + 200){
-      i ++;
-      score = i;
+      score ++;
       print(result + score);
     } else if (marioX== coin4X + 300){
-      i ++;
-      score = i;
+      score ++;
       print(result + score);
     }
     textSize(32);
