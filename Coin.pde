@@ -1,7 +1,8 @@
-//class Coin(){
-//  PImage coinImage;
-//  int coinScore;
-//  PVector coinPosition;
-//  PVector coinVelocity;
+class Coin{
   
-//}
+  PImage coinImage;
+  int coinScore;
+  PVector coinPosition;
+  float coinDirection;
+  
+}

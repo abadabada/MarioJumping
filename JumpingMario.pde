@@ -1,4 +1,5 @@
 SideJumper mario;
+Coin[] coin;
 float left;
 float right;
 float up;
@@ -12,7 +13,7 @@ float ground = 600;
 
 PImage groundImg;
 
-
+PFont font;
 
 
 SoundFile file;
@@ -22,32 +23,55 @@ String path;
 void setup(){
   size(1200,800);
   
-  //ground
-  //fill(#A7782A);
-  //stroke(#939393);
-  //rect(0,652,width,200);
+  font = loadFont("SuperPlumberBrothers-48.vlw");
+  textFont(font);
   
   
   
   mario = new SideJumper();
   mario.image = loadImage("Mario_Standing_Left_Side.png");
-  mario.position = new PVector(400,ground);
+  mario.position = new PVector(2 * width/3,ground);
   mario.direction = 1;
   mario.velocity = new PVector(0,0);
   mario.jumpSpeed = 10;
   mario.walkSpeed = 5;
   
-  PlayMusic();
+  coin = new Coin[4];
+  coin[0] = new Coin();
+  coin[0].coinImage = loadImage ("mario_coin.png");
+  coin[0].coinPosition = new PVector (width/3 , ground - 150);
+  coin[0].coinDirection = 1;
+  
+  coin[1] = new Coin();
+  coin[1].coinImage = loadImage ("mario_coin.png");
+  coin[1].coinPosition = new PVector (width/3  , ground - 150);
+  coin[1].coinDirection = 1;
+  
+  coin[2] = new Coin();
+  coin[2].coinImage = loadImage ("mario_coin.png");
+  coin[2].coinPosition = new PVector (width/3  , ground - 150);
+  coin[2].coinDirection = 1;
+  
+  coin[3] = new Coin();
+  coin[3].coinImage = loadImage ("mario_coin.png");
+  coin[3].coinPosition = new PVector (width/3  , ground - 150);
+  coin[3].coinDirection = 1;
+  
+  //PlayMusic();
   
 }
 
 void draw(){
+  
   background(#A8B4F5);
     //ground
   fill(#A7782A);
   stroke(#939393);
   rect(0,652,width,200);
   updateMario();
+  MakeCoin();
+  ScoreCoins();
+  
 }
 
 void updateMario(){
@@ -135,4 +159,78 @@ void PlayMusic(){
 
 void MakeCoin(){
   
+  pushMatrix();
+  translate(coin[0].coinPosition.x, coin[0].coinPosition.y);
+  scale(coin[0].coinDirection,1);
+  
+  imageMode(CENTER);
+  
+  
+  int k;
+  for(int i = 0 ; i < 4 ; i++){
+    
+    if (i == 0){
+      k = i;
+    } else if (i == 1){
+      k = i + 100;
+    } else if ( i == 2){
+      k = i + 200;
+    } else{
+      k = i + 300;
+    }
+    
+    image(coin[0].coinImage,k,0);
+    image(coin[1].coinImage,k,0);
+    image(coin[2].coinImage,k,0);
+    image(coin[3].coinImage,k,0);
+      
+  }
+  
+  popMatrix();  
+  
+}
+
+void ScoreCoins(){
+  
+  int i = 0;
+  int score = 0;
+  String result = "Coins: ";
+  float marioX = mario.position.x;
+  float marioY = mario.position.y;
+  
+  float coin1X = coin[0].coinPosition.x;
+  float coin2X = coin[1].coinPosition.x;
+  float coin3X = coin[2].coinPosition.x;
+  float coin4X = coin[3].coinPosition.x;
+  
+  float coin1Y = coin[0].coinPosition.y;
+  float coin2Y = coin[1].coinPosition.y;
+  float coin3Y = coin[2].coinPosition.y;
+  float coin4Y = coin[3].coinPosition.y;
+  
+  
+  if (marioX == coin1X && marioY == coin1Y + 200){
+        
+        i ++;
+        score = i;
+        print(result + score);
+    } else if (marioX == coin2X + 100){
+      i ++;
+      score = i;
+      print(result + score);
+    }else if( marioX == coin3X + 200){
+      i ++;
+      score = i;
+      print(result + score);
+    } else if (marioX== coin4X + 300){
+      i ++;
+      score = i;
+      print(result + score);
+    }
+    textSize(32);
+    stroke(#000000);
+    fill(#000000);
+    text(result + score,20,35);
+    
+
 }
