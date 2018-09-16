@@ -1,5 +1,6 @@
 SideJumper mario;
 Coin[] coin;
+//ArrayList<Coin> coins = new ArrayList<>();
 float left;
 float right;
 float up;
@@ -37,6 +38,8 @@ void setup(){
   mario.velocity = new PVector(0,0);
   mario.jumpSpeed = 10;
   mario.walkSpeed = 5;
+  mario.marioH = 116;
+  mario.marioW = 165;
   
   coin = new Coin[4];
   coin[0] = new Coin();
@@ -200,7 +203,7 @@ void ScoreCoins(){
   
   String result = "COINS: ";
   float marioX = mario.position.x;
-  float marioY = mario.position.y - 150;
+  float marioY = mario.position.y;
   
   float coin1X = coin[0].coinPosition.x;
   float coin2X = coin[1].coinPosition.x;
@@ -212,8 +215,9 @@ void ScoreCoins(){
   float coin3Y = coin[2].coinPosition.y;
   float coin4Y = coin[3].coinPosition.y;
   
-  
-  if (marioX == coin1X && marioY >= ground && marioY <= coin1Y){ 
+    
+    
+  if (mario.image.width == coin[0].coinImage.height){ 
       score ++;
       print(result + score);
     } else if (marioX == coin2X + 100){

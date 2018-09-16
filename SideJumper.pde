@@ -6,4 +6,6 @@ float direction;
 PVector velocity;
 float jumpSpeed;
 float walkSpeed;
+float marioH;
+float marioW;
 }
