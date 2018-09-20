@@ -8,7 +8,7 @@ float down;
 
 int score = 0;
 
-import processing.sound.*;
+import ddf.minim.*;
 
 float gravity = 0.3;
 
@@ -18,9 +18,10 @@ PImage groundImg;
 
 PFont font;
 
+Minim minim;
+AudioPlayer player;
 
-SoundFile file;
-String audioName = "Mario_Theme_Song.mp3";
+String audioName = "I'm Just A Memer.mp3";
 String path;
 
 void setup(){
@@ -64,7 +65,7 @@ void setup(){
   
   
   
-  //PlayMusic();
+  PlayMusic();
   
 }
 
@@ -159,9 +160,9 @@ void keyReleased()
 }
 
 void PlayMusic(){
-  path = sketchPath(audioName);
-  file = new SoundFile(this,path);
-  file.play();
+  minim = new Minim(this);
+  player = minim.loadFile("I'm Just A Memer.mp3");
+  player.play();
 }
 
 void MakeCoin(){
@@ -217,7 +218,7 @@ void ScoreCoins(){
   
     
     
-  if (mario.image.width == coin[0].coinImage.height){ 
+  if (marioX == coin1X){ 
       score ++;
       print(result + score);
     } else if (marioX == coin2X + 100){
